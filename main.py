@@ -41,7 +41,7 @@ def update():
     global running
     global sound
         
-    pgp.audio.play(sound)
+    # pgp.audio.play(sound)
 
     # if the close button is pressed.
     if pgp.event.shouldQuit():
