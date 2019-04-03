@@ -113,6 +113,8 @@ class Graphics:
     def __init__(self):
         global display
 
+        self.font = None
+
         self.color = [ 255, 255, 255 ]
 
     def setColor(self, r, g, b):
@@ -131,6 +133,7 @@ class Graphics:
         self.b = b
 
         self.color = ( self.r, self.g, self.b )
+
         display.fill(self.color)
 
     def rectangle(self, filled, x, y, width, height):
@@ -188,21 +191,24 @@ class Graphics:
     def getDimensions(self):
         return pygame.display.get_surface().get_size()
 
-    def newImage(self, image_path):
-        return pygame.image.load(image_path)
+    def newImage(self, filename):
+        return pygame.image.load(filename)
 
     def draw(self, image, x, y):
         display.blit(image, (x, y))
 
+    def newFont(self, font, size):
+        self.font = pygame.font.Font(font, size)
+
     def print(self, text, x, y):
-        self.font  = pygame.font.Font('freesansbold.ttf', 80)
+        if self.font is None:
+            self.font = pygame.font.Font('freesansbold.ttf', 20)
 
         text_surf = self.font.render(text, true, self.color)
         text_rect = text_surf.get_rect()
 
         text_rect.topleft = (x, y)
         display.blit(text_surf, text_rect)
-
 
     # def printf(self, text, x, y, align):
     #     self.font  = pygame.font.Font('freesansbold.ttf', 20)
@@ -303,14 +309,57 @@ class Keyboard:
                 else:
                     return false
 
+class Audio:
+    def __init__(self):
+        # The master volume.
+        self.master_volume = 0.5
+
+    def newBackgroundMusic(self, filename):
+        return "music", pygame.mixer.music.load(filename)
+
+    def newSound(self, filename):
+        return "sound", pygame.mixer.Sound(filename)
+
+    def play(self, audio, *args):
+        pygame.mixer.music.set_volume(self.master_volume)
+
+        if audio[0] == "music":
+            pygame.mixer.music.play()
+        elif audio[0] == "sound":
+            audio[1].set_volume(self.master_volume)
+            audio[1].play()
+
+        for arg in args:
+            if arg[0] == "music":
+                pygame.mixer.music.play()
+            elif arg[0] == "sound":
+                arg[1].set_volume(self.master_volume)
+                arg[1].play()
+
+    def stop(self, audio, *args):
+        if audio[0] == "music":
+            pygame.mixer.music.stop()
+        elif audio[0] == "sound":
+            audio[1].stop()
+
+        for arg in args:
+            if arg[0] == "music":
+                pygame.mixer.music.stop()
+            elif arg[0] == "sound":
+                arg[1].stop()
+
+    # Sets the volume ranging from 0.0 to 1.0.
+    def setVolume(self, volume):
+        self.master_volume = master_volume
+
+    def getVolume(self):
+        return self.master_volume
+        
+
 # COLLECTIVE EVENT CLASS
 class Event:
     def __init__(self):
         pass
-
-    def quitGame(self):
-        pygame.quit()
-        quit()
 
     def shouldQuit(self):
         for event in pygame.event.get():
@@ -319,12 +368,16 @@ class Event:
             else:
                 return false
 
+    def quit(self):
+        pygame.quit()
+        quit()
 
 
 # Module methods.
 time     = Time()
 physics  = Physics()
 graphics = Graphics()
+audio    = Audio()
 keyboard = Keyboard()
 event    = Event()
 
