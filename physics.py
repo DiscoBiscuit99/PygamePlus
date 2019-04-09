@@ -5,6 +5,7 @@ import pygame
 true  = True
 false = False
 
+# The physics classes.
 class World:
     def __init__(self, xg, yg):
         self.xg = xg
@@ -20,7 +21,6 @@ class Body:
         self.y = y
 
         self.state = state
-
 
     def setX(self, x):
         self.x = x
@@ -59,33 +59,29 @@ class Fixture:
         self.shape = shape
 
 
-# The physics class.
-class Physics:
-    def __init__(self):
-        None
+# The physics functions.
+def newWorld(xg, yg):
+    world = World(xg, yg)
 
-    def newWorld(self, xg, yg):
-        self.world = World(xg, yg)
+    return world
 
-        return self.world
+def newBody(world, x, y, state):
+    body = Body(world, x, y, state)
 
-    def newBody(self, world, x, y, state):
-        self.body = Body(world, x, y, state)
+    return body
 
-        return self.body
+def newRectangleShape(width, height):
+    shape = RectangleShape(width, height)
 
-    def newRectangleShape(self, width, height):
-        self.shape = RectangleShape(width, height)
+    return shape
 
-        return self.shape
+def newCircleShape(radius):
+    shape = CircleShape(radius)
 
-    def newCircleShape(self, radius):
-        self.shape = CircleShape(radius)
+    return shape
 
-        return self.shape
+def newFixture(body, shape):
+    fixture = Fixture(body, shape)
 
-    def newFixture(self, body, shape):
-        self.fixture = Fixture(body, shape)
-
-        return self.fixture
+    return fixture
 
