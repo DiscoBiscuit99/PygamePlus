@@ -31,8 +31,8 @@ def load():
 
     # pgp.audio.setVolume(0.1)
 
-    music = pgp.audio.newBackgroundMusic("Dragon Ball GT - OP Japanese HQ.mp3")
-    sound = pgp.audio.newSound("sound.wav")
+    music = pgp.audio.newBackgroundMusic("assets/music/Dragon Ball GT - OP Japanese HQ.mp3")
+    sound = pgp.audio.newSound("assets/sounds/sound.wav")
 
     pgp.audio.play(music)
 
@@ -76,7 +76,7 @@ def draw():
     pgp.graphics.setColor(0, 255, 0)
     pgp.graphics.polygon("fill", points)
 
-    image = pgp.graphics.newImage("HIM-pic.png")
+    image = pgp.graphics.newImage("assets/images/HIM-pic.png")
     pgp.graphics.draw(image, 100, 100)
 
     # pgp.graphics.setDimensions(100, 100)
@@ -87,7 +87,7 @@ def draw():
         # pgp.graphics.setWidth(200)
         # pgp.graphics.setHeight(200)
 
-    pgp.graphics.newFont("Dokdo-Regular.ttf", 20)
+    pgp.graphics.newFont("assets/fonts/Dokdo-Regular.ttf", 20)
 
     pgp.graphics.print("TESTING THE PRINT", 300, 300)
 
