@@ -39,23 +39,21 @@ def keyHeld(key):
     else:
         return false
 
-def keyPressed(key):
+def keyPressed(key, event):
     global keys
 
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN:
-            if event.key == keys[key]:
-                return true
-            else:
-                return false
+    if event.type == pygame.KEYDOWN:
+        if event.key == keys[key]:
+            return true
+        else:
+            return false
 
-def keyReleased(key):
+def keyReleased(key, event):
     global keys
 
-    for event in pygame.event.get():
-        if event.type == pygame.KEYUP:
-            if event.key == keys[key]:
-                return true
-            else:
-                return false
+    if event.type == pygame.KEYUP:
+        if event.key == keys[key]:
+            return true
+        else:
+            return false
 

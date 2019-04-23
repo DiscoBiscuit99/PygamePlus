@@ -1,14 +1,21 @@
 """ The PygamePlus graphics module """
 
+import os
 import pygame
+
+x = 350
+y = 80
+os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (x,y)
 
 true  = True
 false = False
 
-global font
 global display
 
-color = [ 255, 255, 255 ]
+font = None
+
+bgcolor = [ 0, 0, 0 ]
+color   = [ 255, 255, 255 ]
 
 def newSurface(width, height):
     surface = pygame.newSurface((width, height))
@@ -27,12 +34,12 @@ def getColor():
     return color
 
 def setBackgroundColor(r, g, b):
-    global color
+    global bgcolor
     global display
 
-    color = [r, g, b]
+    bgcolor = [r, g, b]
 
-    display.fill(color) 
+    display.fill(bgcolor)
 
 def rectangle(filled, x, y, width, height):
     global display
