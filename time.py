@@ -1,6 +1,5 @@
 """ The PygamePlus time module """
 
-from time import time
 import pygame
 
 true  = True
