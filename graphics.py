@@ -5,6 +5,7 @@ import pygame
 
 x = 350
 y = 80
+
 os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (x,y)
 
 true  = True
@@ -24,6 +25,10 @@ def newSurface(width, height):
 def window(width, height):
     global display
     display = pygame.display.set_mode((width, height))
+
+def getWindow():
+    global display
+    return display
 
 def setColor(r, g, b):
     global color 
